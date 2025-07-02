@@ -110,7 +110,15 @@ DATABASES = {
 
     #'default': env.db()
     
-    'default': env.db('DATABASE_URL', default='sqlite:///db.sqlite3')
+    #'default': env.db('DATABASE_URL', default='sqlite:///db.sqlite3')
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "smysql",
+        "USER": "root",
+        "PASSWORD": "root",
+        "HOST": "127.0.0.1",
+        "PORT": "3306",
+    }
 }
 
 
