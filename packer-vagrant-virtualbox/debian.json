@@ -50,7 +50,8 @@
         "curl -fsSL https://raw.githubusercontent.com/hashicorp/vagrant/main/keys/vagrant.pub -o /home/vagrant/.ssh/authorized_keys",
         "cat /home/vagrant/.ssh/authorized_keys",
         "chmod 600 /home/vagrant/.ssh/authorized_keys",
-        "chown -R vagrant:vagrant /home/vagrant/.ssh"
+        "chown -R vagrant:vagrant /home/vagrant/.ssh",
+        "echo 'Private IP inside VM: $(hostname -I)'"
       ]
     }
   ],
