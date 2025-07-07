@@ -111,18 +111,27 @@ DATABASES = {
     #'default': env.db()
     
     #'default': env.db('DATABASE_URL', default='sqlite:///db.sqlite3')
+    
+    #"default": {
+    #    "ENGINE": "django.db.backends.mysql",
+    #    "NAME": "smysql",
+    #    "USER": "root",
+    #    "PASSWORD": "root123",
+    #    "HOST": "127.0.0.1",
+    #    "PORT": "9696",
+    #}
+
     "default": {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "smysql",
         "USER": "root",
         "PASSWORD": "root123",
-        "HOST": "127.0.0.1",
-        "PORT": "9696",
+        "HOST": 'db',
+        "PORT": "3306",
     }
 }
 
 
-# Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
