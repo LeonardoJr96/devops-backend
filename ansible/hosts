@@ -1,0 +1,7 @@
+[webservers]
+webserver1 ansible_host=192.168.56.101
+webserver2 ansible_host=192.168.56.102
+
+[all:vars]
+ansible_ssh_private_key_file=/caminho/para/chave/privada/ssh
+ansible_user=vagrant
