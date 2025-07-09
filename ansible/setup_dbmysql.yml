@@ -1,0 +1,15 @@
+---
+- name: Instalar e configurar Banco de Dados MySQL
+  hosts: dbservers
+  become: yes
+  tasks:
+    - name: Instalar o MySQL Server
+      apt:
+        name: MySQL-server
+        state: present
+        update_cache: yes
+
+    - name: Garantir que o MySQL esteja rodando
+      service:
+        name: MySQL-server
+        state: started

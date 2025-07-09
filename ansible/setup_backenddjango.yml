@@ -1,0 +1,59 @@
+---
+- name: Instalar e configurar Backend Django
+  hosts: backservers
+  become: yes
+  vars:
+    project_dir: /vagrant  # onde o Django estará dentro da VM
+    venv_dir: /vagrant/venv
+
+  tasks:
+
+    - name: Instalar dependências do sistema
+      apt:
+        name:
+          - python3
+          - python3-venv
+          - python3-pip
+        state: present
+        update_cache: yes
+
+    - name: Criar ambiente virtual
+      command: python3 -m venv {{ venv_dir }}
+      args:
+        creates: "{{ venv_dir }}"
+
+    - name: Instalar dependências do projeto
+      pip:
+        requirements: "{{ project_dir }}/requirements.txt"
+        virtualenv: "{{ venv_dir }}"
+
+    - name: Migrar o banco de dados
+      command: "{{ venv_dir }}/bin/python manage.py migrate"
+      args:
+        chdir: "{{ project_dir }}"
+
+    - name: Criar serviço systemd para o Django
+      copy:
+        dest: /etc/systemd/system/backend-django.service
+        content: |
+          [Unit]
+          Description=Backend Django App
+          After=network.target
+
+          [Service]
+          User=vagrant
+          WorkingDirectory={{ project_dir }}
+          ExecStart={{ venv_dir }}/bin/python manage.py runserver 0.0.0.0:8000
+          Restart=always
+
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: Recarregar o systemd
+      command: systemctl daemon-reexec
+
+    - name: Ativar e iniciar o serviço
+      systemd:
+        name: backend-django
+        enabled: yes
+        state: restarted
