@@ -178,3 +178,9 @@ cython_debug/
 
 #debian.json
 debian12.box
+
+# Vagrant
+.vagrant/
+
+# ansible
+ansible/

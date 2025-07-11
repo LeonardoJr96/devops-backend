@@ -1,6 +1,6 @@
 ---
 - name: Configurar frontend Vue em produção com NGINX
-  hosts: webservers
+  hosts: web-back-servers
   become: yes
   vars:
     repo_url: https://github.com/LeonardoJr96/devops-frontend.git
@@ -24,7 +24,8 @@
       git:
         repo: "{{ repo_url }}"
         dest: "{{ app_dir }}"
-        version: main
+        version: develop
+        force: yes
 
     - name: Instalar dependências do projeto
       npm:

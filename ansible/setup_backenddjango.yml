@@ -1,6 +1,6 @@
 ---
 - name: Instalar e configurar Backend Django
-  hosts: backservers
+  hosts: web-back-servers
   become: yes
   vars:
     project_dir: /vagrant  # onde o Django estará dentro da VM
